@@ -2,177 +2,216 @@ import type { Collection, Photo } from "./types"
 
 // Collection format mapping
 const collectionFormats: Record<string, string> = {
-  'bali': 'jpeg',
-  'morocco': 'webp',
-  'tokyo': 'jpg',
-  'new-zealand': 'jpg',
-  'iceland': 'jpg',
-  'urban-portraits': 'jpg'
+  'documentary': 'webp',
+  'aerial': 'webp',
+  'commercial': 'webp',
+  'specialist-factual': 'webp',
+  'camera-operating': 'webp',
+  'behind-the-scenes': 'webp'
 } as const
 
-// Collection folder name mapping (for case sensitivity)
+// Collection folder name mapping
 const collectionFolders: Record<string, string> = {
-  'bali': 'Bali',
-  'morocco': 'Morocco',
-  'tokyo': 'Tokyo',
-  'new-zealand': 'new zealand',
-  'iceland': 'Iceland',
-  'urban-portraits': 'Urban Portraits'
+  'documentary': 'documentary',
+  'aerial': 'aerial',
+  'commercial': 'commercial',
+  'specialist-factual': 'specialist-factual',
+  'camera-operating': 'camera-operating',
+  'behind-the-scenes': 'behind-the-scenes'
 } as const
 
 // Collection image counts and formats
-const collectionImages: Record<string, { count: number; formats: string[] }> = {
-  'bali': { 
-    count: 16,
-    formats: ['jpeg', 'jpg']
-  },
-  'morocco': { 
-    count: 21,
+export const collectionImages: Record<string, { count: number; formats: string[] }> = {
+  'documentary': {
+    count: 3,
     formats: ['webp']
   },
-  'tokyo': { 
-    count: 20,
-    formats: ['jpg']
+  'aerial': {
+    count: 3,
+    formats: ['webp']
   },
-  'new-zealand': { 
-    count: 18,
-    formats: ['jpg']
+  'commercial': {
+    count: 3,
+    formats: ['webp']
   },
-  'iceland': { 
-    count: 14,
-    formats: ['jpg']
+  'specialist-factual': {
+    count: 3,
+    formats: ['webp']
   },
-  'urban-portraits': { 
-    count: 16,
-    formats: ['jpg']
+  'camera-operating': {
+    count: 3,
+    formats: ['webp']
+  },
+  'behind-the-scenes': {
+    count: 3,
+    formats: ['webp']
   }
 } as const
 
-// Common metadata for photos
-const defaultMetadata = {
-  camera: "Sony Alpha A7 IV",
-  lens: "24-70mm f/2.8",
-  aperture: "f/8.0",
-  shutterSpeed: "1/250",
-  iso: "100",
-  focalLength: "35mm",
-  takenAt: new Date().toISOString().split("T")[0],
-} as const
-
-// Aspect ratios for different image types
-const aspectRatios = [
-  { width: 1800, height: 1200 }, // 3:2
-  { width: 1800, height: 1350 }, // 4:3
-  { width: 1800, height: 1080 }, // 16:9
-  { width: 1200, height: 1800 }, // 2:3 (portrait)
-] as const
+// Camera metadata presets for cinema cinematography
+const metadataByCollection: Record<string, { camera: string; lens: string; aperture: string; shutterSpeed: string; iso: string; focalLength: string; takenAt: string }> = {
+  'documentary': {
+    camera: "Sony FX6 Cinema Line",
+    lens: "Sony FE PZ 28-135mm f/4 G OSS",
+    aperture: "T4.0",
+    shutterSpeed: "1/50 (180° shutter)",
+    iso: "800 Base ISO",
+    focalLength: "35mm",
+    takenAt: "Concept Spec",
+  },
+  'aerial': {
+    camera: "DJI Inspire 3 / Zenmuse X9-8K Air",
+    lens: "DL 24mm F2.8 LS ASPH",
+    aperture: "f/4.0",
+    shutterSpeed: "1/50 (180° shutter)",
+    iso: "800 Base ISO",
+    focalLength: "24mm",
+    takenAt: "Concept Spec",
+  },
+  'commercial': {
+    camera: "ARRI Alexa Mini LF",
+    lens: "Cooke Anamorphic /i Full Frame Plus 40mm",
+    aperture: "T2.3",
+    shutterSpeed: "1/48 (180° shutter)",
+    iso: "800",
+    focalLength: "40mm Anamorphic",
+    takenAt: "Concept Spec",
+  },
+  'specialist-factual': {
+    camera: "Sony FX9 Full-Frame",
+    lens: "Canon Cinema 50-1000mm T5.0-8.9",
+    aperture: "T5.6",
+    shutterSpeed: "1/100 (High Speed Factual)",
+    iso: "800 Base ISO",
+    focalLength: "650mm",
+    takenAt: "Concept Spec",
+  },
+  'camera-operating': {
+    camera: "ARRI Alexa 35 / Easyrig Vario 5",
+    lens: "ARRI Master Prime 35mm T1.3",
+    aperture: "T2.0",
+    shutterSpeed: "1/48 (180° shutter)",
+    iso: "800",
+    focalLength: "35mm",
+    takenAt: "Concept Spec",
+  },
+  'behind-the-scenes': {
+    camera: "Production Still / Sony A7S III",
+    lens: "Sony FE 24-70mm f/2.8 GM II",
+    aperture: "f/2.8",
+    shutterSpeed: "1/125",
+    iso: "1600",
+    focalLength: "50mm",
+    takenAt: "Concept Spec",
+  }
+}
 
 // Function to get images for a collection
 function getCollectionImages(collectionSlug: string): Photo[] {
-  // Get the proper folder name from our mapping instead of generating it
   const folderName = collectionFolders[collectionSlug]
   if (!folderName) return []
 
   const collectionInfo = collectionImages[collectionSlug]
   if (!collectionInfo) return []
   
+  const meta = metadataByCollection[collectionSlug] || {
+    camera: "Cinema Rig",
+    lens: "Cinema Prime",
+    aperture: "T2.8",
+    shutterSpeed: "1/50",
+    iso: "800",
+    focalLength: "35mm",
+    takenAt: "Concept Spec",
+  }
+
   return Array.from({ length: collectionInfo.count }, (_, i) => {
     const index = i + 1
-    const format = collectionSlug === 'bali' && index >= 10 && index <= 15 ? 'jpg' : collectionFormats[collectionSlug]
-    const imagePath = `/${folderName}/${collectionSlug}-${index}.${format}`
-    const dimensions = aspectRatios[index % aspectRatios.length]
+    const imagePath = `/${folderName}/${collectionSlug}-${index}.webp`
 
     return {
       id: `${collectionSlug}-${index}`,
       src: imagePath,
-      width: dimensions.width,
-      height: dimensions.height,
-      alt: `${collectionSlug} image ${index}`,
-      metadata: defaultMetadata,
+      width: 1920,
+      height: 1080,
+      alt: `${collectionSlug.replace(/-/g, ' ')} conceptual frame ${index} - Nick Gaven portfolio concept`,
+      metadata: meta,
     }
   })
-}
-
-// Function to get cover image path
-function getCoverImagePath(folderName: string): string {
-  const collectionSlug = folderName.toLowerCase().replace(' ', '-')
-  const format = collectionFormats[collectionSlug] || 'jpg'
-  return `/${folderName}/cover.${format}`
 }
 
 // Collections data
 const collections: Collection[] = [
   {
-    id: "1",
-    slug: "new-zealand",
-    title: "New Zealand Landscapes",
-    description: "Breathtaking landscapes from across New Zealand",
+    id: "documentary",
+    slug: "documentary",
+    title: "Documentary",
+    description: "Observational cinematography in demanding, remote environments",
     fullDescription:
-      "New Zealand offers some of the most diverse and dramatic landscapes in the world. From the snow-capped Southern Alps to the pristine beaches of the Coromandel Peninsula, this collection captures the raw beauty and majesty of Aotearoa.",
-    coverImage: getCoverImagePath("new zealand"),
-    tags: ["Nature", "Landscape", "Mountains"],
+      "Capturing authentic human narrative and raw natural elements through responsive camera operating. Concept portfolio imagery demonstrating handheld, shoulder-mount, and run-and-gun cinema techniques built for observational documentary workflows.",
+    coverImage: "/documentary/cover.webp",
+    tags: ["Documentary", "Handheld", "Factual"],
     featured: true,
-    photos: getCollectionImages("new-zealand"),
+    photos: getCollectionImages("documentary"),
   },
   {
-    id: "2",
-    slug: "tokyo",
-    title: "Japan: Urban & Traditional",
-    description: "The contrast between modern and traditional Japan",
+    id: "aerial",
+    slug: "aerial",
+    title: "Aerial Cinematography",
+    description: "Precision heavy-lift and dual-operator drone cinematography",
     fullDescription:
-      "Japan presents a fascinating juxtaposition of ultramodern urban environments and serene traditional settings. This collection explores the visual dialogue between Tokyo's neon-lit streets and the tranquil temples of Kyoto, capturing Japan's unique cultural identity.",
-    coverImage: getCoverImagePath("Tokyo"),
-    tags: ["Urban", "Culture", "Architecture"],
+      "Comprehensive aerial perspective from ground to air. Spec concept sequences highlighting high-altitude tracking, dynamic reveal flights, and precision low-altitude pathing tailored for narrative drama and commercial productions.",
+    coverImage: "/aerial/cover.webp",
+    tags: ["Aerial", "Drone", "Landscape"],
     featured: true,
-    photos: getCollectionImages("tokyo"),
+    photos: getCollectionImages("aerial"),
   },
   {
-    id: "3",
-    slug: "bali",
-    title: "Bali: Island of the Gods",
-    description: "Tropical paradise and cultural heritage of Bali",
+    id: "commercial",
+    slug: "commercial",
+    title: "Commercial",
+    description: "High-end studio, automotive, and stylized lighting setups",
     fullDescription:
-      "Known as the Island of the Gods, Bali captivates with its dramatic landscapes, vibrant cultural heritage, and spiritual atmosphere. This collection documents the island's terraced rice fields, ancient temples, pristine beaches, and the warmth of Balinese people.",
-    coverImage: getCoverImagePath("Bali"),
-    tags: ["Tropical", "Culture", "Nature"],
+      "Controlled studio environments, precision motion tracks, and sculpted lighting. Concept portfolio visuals exploring commercial aesthetics, automotive stage work, and high-impact visual design.",
+    coverImage: "/commercial/cover.webp",
+    tags: ["Commercial", "Studio", "Lighting"],
     featured: true,
-    photos: getCollectionImages("bali"),
+    photos: getCollectionImages("commercial"),
   },
   {
-    id: "4",
-    slug: "iceland",
-    title: "Iceland: Land of Fire and Ice",
-    description: "Dramatic landscapes of Iceland",
+    id: "specialist-factual",
+    slug: "specialist-factual",
+    title: "Specialist Factual",
+    description: "Extreme telephoto, macro, and natural history camera operations",
     fullDescription:
-      "Iceland's otherworldly landscapes showcase nature's raw power and beauty. This collection captures the country's dramatic contrasts: steaming geothermal areas alongside massive glaciers, thundering waterfalls cutting through black lava fields, and the ethereal Northern Lights dancing above it all.",
-    coverImage: getCoverImagePath("Iceland"),
-    tags: ["Nature", "Landscape", "Winter"],
-    featured: false,
-    photos: getCollectionImages("iceland"),
+      "Specialized setups for natural history, science, and long-lens observational filming. Prepared for hide operations, extreme patience, and demanding field environments.",
+    coverImage: "/specialist-factual/cover.webp",
+    tags: ["Specialist Factual", "Long Lens", "Natural History"],
+    featured: true,
+    photos: getCollectionImages("specialist-factual"),
   },
   {
-    id: "5",
-    slug: "morocco",
-    title: "Colors of Morocco",
-    description: "Vibrant markets, architecture, and desert landscapes",
+    id: "camera-operating",
+    slug: "camera-operating",
+    title: "Camera Operating",
+    description: "Steadicam, gimbal systems, Easyrig, and handheld operating",
     fullDescription:
-      "Morocco is a feast for the senses, with its vibrant colors, intricate patterns, and diverse landscapes. This collection explores the bustling medinas, ancient kasbahs, vast Sahara dunes, and the rich cultural tapestry that makes Morocco so visually captivating.",
-    coverImage: getCoverImagePath("Morocco"),
-    tags: ["Culture", "Desert", "Architecture"],
-    featured: false,
-    photos: getCollectionImages("morocco"),
+      "Dynamic movement supporting dramatic narrative flow. From intricate Steadicam tracking shots to textured handheld and stabilized gimbal rigs, keeping the storytelling centered in the frame.",
+    coverImage: "/camera-operating/cover.webp",
+    tags: ["Camera Operating", "Steadicam", "Easyrig"],
+    featured: true,
+    photos: getCollectionImages("camera-operating"),
   },
   {
-    id: "6",
-    slug: "urban-portraits",
-    title: "Urban Portraits",
-    description: "Street photography and urban life around the world",
+    id: "behind-the-scenes",
+    slug: "behind-the-scenes",
+    title: "Behind The Scenes",
+    description: "Camera prep, wireless focus integration, and soundstage workflows",
     fullDescription:
-      "This collection focuses on the human element within urban environments. Through candid street photography and environmental portraits, it captures the diversity, energy, and stories of city dwellers across different cultures and metropolises around the world.",
-    coverImage: getCoverImagePath("Urban Portraits"),
-    tags: ["Urban", "People", "Street"],
-    featured: false,
-    photos: getCollectionImages("urban-portraits"),
+      "The craft behind the camera. 1st AC / 2nd AC camera assistant preparation, wireless video distribution, optical calibration, and collaborative technical workflows on soundstages and field locations.",
+    coverImage: "/behind-the-scenes/cover.webp",
+    tags: ["Behind The Scenes", "Camera Prep", "1st AC"],
+    featured: true,
+    photos: getCollectionImages("behind-the-scenes"),
   },
 ]
 

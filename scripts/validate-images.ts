@@ -3,50 +3,50 @@ const path = require('path');
 
 // Collection image counts and formats
 const collectionImages: Record<string, { count: number; formats: string[] }> = {
-  'bali': { 
-    count: 16,
-    formats: ['jpeg', 'jpg']  // Bali has images in both formats
-  },
-  'morocco': { 
-    count: 21,  // Updated count based on actual files
+  'documentary': { 
+    count: 3,
     formats: ['webp']
   },
-  'tokyo': { 
-    count: 20,  // Updated count based on actual files
-    formats: ['jpg']
+  'aerial': { 
+    count: 3,
+    formats: ['webp']
   },
-  'new-zealand': { 
-    count: 18,
-    formats: ['jpg']
+  'commercial': { 
+    count: 3,
+    formats: ['webp']
   },
-  'iceland': { 
-    count: 14,
-    formats: ['jpg']
+  'specialist-factual': { 
+    count: 3,
+    formats: ['webp']
   },
-  'urban-portraits': { 
-    count: 16,
-    formats: ['jpg']
+  'camera-operating': { 
+    count: 3,
+    formats: ['webp']
+  },
+  'behind-the-scenes': { 
+    count: 3,
+    formats: ['webp']
   }
 }
 
 // Collection format mapping for cover images
 const collectionFormats: Record<string, string> = {
-  'bali': 'jpeg',
-  'morocco': 'webp',
-  'tokyo': 'jpg',
-  'new-zealand': 'jpg',
-  'iceland': 'jpg',
-  'urban-portraits': 'jpg'
+  'documentary': 'webp',
+  'aerial': 'webp',
+  'commercial': 'webp',
+  'specialist-factual': 'webp',
+  'camera-operating': 'webp',
+  'behind-the-scenes': 'webp'
 }
 
-// Collection folder name mapping (for case sensitivity)
+// Collection folder name mapping
 const collectionFolders: Record<string, string> = {
-  'bali': 'Bali',
-  'morocco': 'Morocco',
-  'tokyo': 'Tokyo',
-  'new-zealand': 'new zealand',
-  'iceland': 'Iceland',
-  'urban-portraits': 'Urban Portraits'
+  'documentary': 'documentary',
+  'aerial': 'aerial',
+  'commercial': 'commercial',
+  'specialist-factual': 'specialist-factual',
+  'camera-operating': 'camera-operating',
+  'behind-the-scenes': 'behind-the-scenes'
 }
 
 interface ValidationResult {
@@ -69,7 +69,7 @@ function validateImages(dryRun: boolean = false): ValidationResult {
     warnings: []
   }
 
-  console.log('🔍 Starting image validation...')
+  console.log('🔍 Starting image validation for Nick Gaven categories...')
   if (dryRun) {
     console.log('⚠️  Running in dry-run mode - will not fail the build\n')
   }
@@ -109,23 +109,12 @@ function validateImages(dryRun: boolean = false): ValidationResult {
       let imageExists = false
       let foundFormat = ''
       
-      // For Bali, check both formats
-      if (slug === 'bali') {
-        const format = (i >= 10 && i <= 15) ? 'jpg' : 'jpeg'
+      for (const format of info.formats) {
         const imagePath = path.join(collectionDir, `${slug}-${i}.${format}`)
         if (fs.existsSync(imagePath)) {
           imageExists = true
           foundFormat = format
-        }
-      } else {
-        // For other collections, check their format
-        for (const format of info.formats) {
-          const imagePath = path.join(collectionDir, `${slug}-${i}.${format}`)
-          if (fs.existsSync(imagePath)) {
-            imageExists = true
-            foundFormat = format
-            break
-          }
+          break
         }
       }
 
@@ -136,13 +125,6 @@ function validateImages(dryRun: boolean = false): ValidationResult {
         result.hasErrors = true
       } else {
         result.validatedImages++
-        // Add warning for non-standard format
-        if (slug === 'bali' && foundFormat !== 'jpeg' && i < 10) {
-          const warning = `Warning: ${folderName}/${slug}-${i}.${foundFormat} uses non-standard format`
-          result.warnings.push(warning)
-          console.warn(`⚠️  ${warning}`)
-          result.hasWarnings = true
-        }
       }
     }
   })
@@ -169,7 +151,7 @@ function validateImages(dryRun: boolean = false): ValidationResult {
       console.log('\n⚠️  Dry run completed with errors. Build will continue.')
     }
   } else {
-    console.log('\n✅ All images validated successfully!')
+    console.log('\n✅ All Nick Gaven concept images validated successfully!')
   }
 
   return result
@@ -180,4 +162,4 @@ const args = process.argv.slice(2)
 const dryRun = args.includes('--dry-run')
 
 // Run the validation
-validateImages(dryRun) 
+validateImages(dryRun)

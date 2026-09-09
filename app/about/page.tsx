@@ -1,217 +1,225 @@
 "use client"
 
 import Image from "next/image"
-import { ArrowRight, Camera, Globe, Award, Users } from "lucide-react"
+import { ArrowRight, Video, Compass, Layers, ShieldCheck, Mail, CheckCircle2 } from "lucide-react"
 import { motion } from "framer-motion"
 import AnimatedButton from "@/components/animated-button"
+import { siteConfig } from "@/lib/config"
 
 export default function AboutPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-[50vh] w-full">
+      <section className="relative h-[45vh] w-full">
         <Image
-          src="/Iceland/iceland-7.jpg?height=800&width=1920"
-          alt="About X100"
+          src="/nick/hero-camera.webp"
+          alt="Film set cinema camera rig - Concept imagery"
           fill
           priority
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-black/60 to-black/30" />
         <motion.div
           className="absolute inset-0 flex flex-col justify-center items-center text-center p-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="text-4xl md:text-5xl text-white mb-4">About Me</h1>
-          <p className="text-white/90 text-lg max-w-2xl">The story behind the lens</p>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-background/80 backdrop-blur-md border border-border text-[11px] font-mono tracking-wider uppercase mb-3">
+            <span className="text-primary">Professional Profile</span>
+          </div>
+          <h1 className="text-4xl md:text-6xl font-mono uppercase font-bold tracking-tight text-white mb-2">
+            About {siteConfig.name}
+          </h1>
+          <p className="text-white/80 text-sm md:text-base font-mono max-w-2xl">
+            {siteConfig.rolesFormatted}
+          </p>
         </motion.div>
       </section>
-      <div className="header-height"></div>
 
-      {/* Bio Section */}
+      {/* Main Bio & Portrait Section */}
       <section className="py-16 px-4 md:px-8 max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-12 items-start">
+          {/* Portrait with Transparent Disclaimer */}
           <motion.div
-            className="relative h-[600px] rounded-2xl overflow-hidden"
+            className="flex flex-col gap-3"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <Image
-              src="/Iceland/iceland-12.jpg?height=1200&width=800"
-              alt="Photographer portrait"
-              fill
-              className="object-cover"
-            />
+            <div className="relative h-[560px] w-full rounded-3xl overflow-hidden border border-border/80 shadow-2xl group">
+              <Image
+                src={siteConfig.authorImage}
+                alt="Nick Gaven portfolio concept portrait"
+                fill
+                priority
+                className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+              <div className="absolute bottom-4 left-4 right-4">
+                <div className="bg-black/80 backdrop-blur-md p-3 rounded-2xl border border-white/10 text-xs font-mono">
+                  <p className="text-white font-semibold mb-0.5">Working Environment Representation</p>
+                  <p className="text-neutral-400 text-[11px]">
+                    {siteConfig.portraitDisclaimer}. Structured for seamless replacement upon provision of verified production headshot.
+                  </p>
+                </div>
+              </div>
+            </div>
           </motion.div>
+
+          {/* Professional Introduction */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
+            className="space-y-6"
           >
-            <h2 className="text-3xl md:text-4xl mb-6">The Journey</h2>
-            <p className="text-primary mb-4">
-              I'm a professional photographer with over 10 years of experience capturing moments around the world. My
-              passion for photography began during a backpacking trip through Southeast Asia, where I discovered the
-              power of visual storytelling.
+            <div>
+              <span className="text-xs font-mono uppercase tracking-widest text-primary font-semibold">
+                Overview
+              </span>
+              <h2 className="text-3xl md:text-4xl font-mono uppercase tracking-tight mt-1 mb-4">
+                Camera Craft & Aerial Operations
+              </h2>
+            </div>
+
+            <p className="text-muted-foreground text-base leading-relaxed">
+              Nick Gaven is a UK-based camera professional operating across feature films, television drama, documentary, commercial, and specialist factual productions. His roles encompass <strong className="text-foreground">Camera Operator</strong>, <strong className="text-foreground">Director of Photography (DOP)</strong>, <strong className="text-foreground">Camera Assistant</strong>, and <strong className="text-foreground">Drone Pilot</strong>.
             </p>
-            <p className="text-primary mb-4">
-              Since then, I've traveled to over 30 countries, documenting landscapes, cultures, and urban environments.
-              My work has been featured in publications like National Geographic, Condé Nast Traveler, and Vogue.
+
+            <p className="text-muted-foreground text-base leading-relaxed">
+              With a commitment to visual precision and narrative intent, Nick provides adaptable camera operating solutions ranging from physical handheld and Easyrig operating to complex multi-axis gimbal setups and high-altitude cinema drone tracking.
             </p>
-            <p className="text-primary mb-6">
-              I believe that photography has the power to connect people across cultures and inspire a deeper
-              appreciation for our world. Each image I create aims to tell a story and evoke emotion.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <div className="flex items-center gap-2">
-                <Camera size={20} className="text-primary" />
-                <span className="text-primary">Fujifilm x100vi & Leica M10</span>
+
+            {/* Core Capabilities */}
+            <div className="grid sm:grid-cols-2 gap-4 pt-4 border-t border-border">
+              <div className="p-4 rounded-2xl bg-secondary/50 border border-border">
+                <div className="flex items-center gap-2 mb-2">
+                  <Video size={18} className="text-primary" />
+                  <h3 className="font-mono text-sm font-semibold uppercase">Camera Operating</h3>
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Handheld, Easyrig, Steadicam, geared and fluid heads, and tracking vehicles for narrative continuity.
+                </p>
               </div>
-              <div className="flex items-center gap-2">
-                <Globe size={20} className="text-primary" />
-                <span className="text-primary">30+ Countries</span>
+
+              <div className="p-4 rounded-2xl bg-secondary/50 border border-border">
+                <div className="flex items-center gap-2 mb-2">
+                  <Compass size={18} className="text-primary" />
+                  <h3 className="font-mono text-sm font-semibold uppercase">Drone Piloting</h3>
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Heavy-lift and dual-operator aerial cinematography covering dynamic tracking, landscape reveal, and chase sequences.
+                </p>
               </div>
-              <div className="flex items-center gap-2">
-                <Award size={20} className="text-primary" />
-                <span className="text-primary">Award-winning</span>
+
+              <div className="p-4 rounded-2xl bg-secondary/50 border border-border">
+                <div className="flex items-center gap-2 mb-2">
+                  <Layers size={18} className="text-primary" />
+                  <h3 className="font-mono text-sm font-semibold uppercase">Camera Assistant / 1st AC</h3>
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Precision wireless focus pulling, optical prep, wireless video feeds (Teradek), and camera truck organization.
+                </p>
               </div>
-              <div className="flex items-center gap-2">
-                <Users size={20} className="text-primary" />
-                <span className="text-primary">Workshops & Mentoring</span>
+
+              <div className="p-4 rounded-2xl bg-secondary/50 border border-border">
+                <div className="flex items-center gap-2 mb-2">
+                  <ShieldCheck size={18} className="text-primary" />
+                  <h3 className="font-mono text-sm font-semibold uppercase">Production Readiness</h3>
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Thorough set etiquette, risk assessment compliance, and reliable operation in challenging field conditions.
+                </p>
               </div>
+            </div>
+
+            {/* Availability Callout */}
+            <div className="pt-4 flex flex-wrap gap-4 items-center">
+              <AnimatedButton href="/contact" variant="primary" icon={<Mail size={16} />}>
+                Production Enquiry
+              </AnimatedButton>
+              <a
+                href={`mailto:${siteConfig.email}?subject=Production%20Booking%20-%20Nick%20Gaven`}
+                className="text-xs font-mono text-muted-foreground hover:text-foreground underline underline-offset-4"
+              >
+                {siteConfig.email}
+              </a>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Philosophy */}
-      <section className="py-16 px-4 md:px-8">
+      {/* Production Principles */}
+      <section className="py-16 px-4 md:px-8 border-t border-border bg-secondary/20">
         <div className="max-w-5xl mx-auto">
-          <motion.h2
-            className="text-3xl md:text-4xl mb-8 text-center"
+          <motion.div
+            className="text-center mb-12"
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            My Philosophy
-          </motion.h2>
-          <div className="grid md:grid-cols-3 gap-8">
+            <h2 className="text-2xl sm:text-3xl font-mono uppercase tracking-tight text-foreground">
+              Production Discipline & Standards
+            </h2>
+            <p className="text-muted-foreground text-sm font-mono mt-2">
+              Core operational standards brought to every call sheet
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-6">
             {[
               {
-                title: "Authenticity",
+                title: "Story-Driven Framing",
                 description:
-                  "I believe in capturing authentic moments that tell real stories. My approach focuses on finding beauty in truth rather than manufacturing perfect scenes.",
+                  "Every pan, tilt, and push serves the director's narrative beats and character emotions, rather than drawing attention to the camera itself.",
               },
               {
-                title: "Connection",
+                title: "Rigorous Technical Prep",
                 description:
-                  "Photography creates connections - between viewer and subject, between cultures, and between people. I strive to foster these connections through my work.",
+                  "Comprehensive lens checks, balance calibration, power management, and wireless link testing before rolling on set.",
               },
               {
-                title: "Respect",
+                title: "Safety & Airspace Compliance",
                 description:
-                  "I approach every environment and subject with deep respect. This means respecting cultures, natural spaces, and the stories I'm privileged to capture.",
+                  "Strict adherence to film set health and safety standards and authorized drone operations with certified flight protocols.",
               },
             ].map((item, index) => (
               <motion.div
                 key={item.title}
-                className="text-primary dark:text-primary-secondary bg-primary-secondary dark:bg-primary p-8 rounded-2xl shadow-sm"
+                className="bg-card border border-border p-6 rounded-2xl shadow-sm"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                whileHover={{ y: -5, transition: { duration: 0.2 } }}
               >
-                <h3 className="text-primary-secondary dark:text-primary-foreground text-xl mb-4">{item.title}</h3>
-                <p className="text-primary-secondary dark:text-primary-foreground">{item.description}</p>
+                <div className="flex items-center gap-2 mb-3">
+                  <CheckCircle2 size={18} className="text-primary" />
+                  <h3 className="font-mono text-base font-semibold text-foreground">{item.title}</h3>
+                </div>
+                <p className="text-muted-foreground text-sm leading-relaxed">{item.description}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Timeline */}
-      <section className="py-16 px-4 md:px-8 max-w-5xl mx-auto">
-        <motion.h2
-          className="text-3xl md:text-4xl mb-12 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-        >
-          My Journey
-        </motion.h2>
-        <div className="space-y-12">
-          {[
-            {
-              year: "2013",
-              title: "First Exhibition",
-              description:
-                "Hosted my first photography exhibition in New York, featuring landscapes from across North America.",
-            },
-            {
-              year: "2015",
-              title: "National Geographic Feature",
-              description:
-                "My series on indigenous communities was featured in National Geographic, marking a significant milestone in my career.",
-            },
-            {
-              year: "2018",
-              title: "Photography Book",
-              description:
-                'Published my first photography book, "Perspectives," showcasing a decade of travel photography.',
-            },
-            {
-              year: "2020",
-              title: "Photography Workshops",
-              description:
-                "Began offering photography workshops and mentoring programs to share knowledge and techniques with aspiring photographers.",
-            },
-            {
-              year: "Present",
-              title: "Ongoing Projects",
-              description:
-                "Currently working on long-term documentary projects focused on environmental conservation and cultural preservation.",
-            },
-          ].map((item, index) => (
-            <motion.div
-              key={item.year}
-              className="flex flex-col md:flex-row gap-4"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <div className="md:w-1/4">
-                <h3 className="text-xl">{item.year}</h3>
-              </div>
-              <div className="md:w-3/4">
-                <h4 className="font-medium text-2xl mb-2">{item.title}</h4>
-                <p className="text-primary">{item.description}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
       {/* Call to Action */}
-      <section className="min-w-[90%] justify-self-center mr-4 ml-4 py-20 my-20 px-4 md:px-8 rounded-3xl border-[1px] border-border">
+      <section className="py-20 px-4 md:px-8 max-w-4xl mx-auto text-center">
         <motion.div
-          className="max-w-7xl mx-auto text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-primary text-3xl md:text-4xl mb-6">Collaborate?</h2>
-          <p className="text-primary max-w-2xl mx-auto mb-8">
-            Whether you're looking for prints, licensing, or a custom photography project, feel free to get in touch.
+          <h2 className="text-3xl md:text-4xl font-mono uppercase tracking-tight mb-4">
+            Available For Production Enquiries
+          </h2>
+          <p className="text-muted-foreground max-w-xl mx-auto mb-8 text-sm sm:text-base leading-relaxed">
+            Contact directly with production dates, treatment, or camera package requirements.
           </p>
           <AnimatedButton href="/contact" variant="primary" icon={<ArrowRight size={18} />}>
             Get in Touch

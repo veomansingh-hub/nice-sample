@@ -1,8 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 
 type Card = {
   id: number;
@@ -14,12 +13,15 @@ type Card = {
 const SkeletonOne = () => {
   return (
     <div>
-      <p className="font-oldLondon font-bold md:text-4xl text-xl text-white">
-        Tokyo Nights
+      <p className="font-mono tracking-wider font-bold md:text-3xl text-xl text-white uppercase">
+        Camera Operating & Steadicam
       </p>
-      <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
-        Exploring the vibrant nightlife and neon-lit streets of Tokyo's urban landscape.
+      <p className="font-normal text-sm my-3 max-w-lg text-neutral-200 leading-relaxed">
+        Fluid, immersive motion operating with Easyrig, Steadicam, and stabilized gimbal rigs designed for narrative pacing.
       </p>
+      <span className="text-[10px] font-mono tracking-widest text-neutral-400 uppercase">
+        Concept Spec · ARRI Alexa 35 / Easyrig
+      </span>
     </div>
   );
 };
@@ -27,12 +29,15 @@ const SkeletonOne = () => {
 const SkeletonTwo = () => {
   return (
     <div>
-      <p className="font-oldLondon font-bold md:text-4xl text-xl text-white">
-        Urban Portraits
+      <p className="font-mono tracking-wider font-bold md:text-3xl text-xl text-white uppercase">
+        Aerial Cinematography
       </p>
-      <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
-        Capturing the essence of city life through intimate street photography and urban portraiture.
+      <p className="font-normal text-sm my-3 max-w-lg text-neutral-200 leading-relaxed">
+        Dual-operator cinema drone flights delivering panoramic perspective and low-altitude dynamic pursuit tracks.
       </p>
+      <span className="text-[10px] font-mono tracking-widest text-neutral-400 uppercase">
+        Concept Spec · DJI Inspire 3 / X9-8K
+      </span>
     </div>
   );
 };
@@ -40,12 +45,15 @@ const SkeletonTwo = () => {
 const SkeletonThree = () => {
   return (
     <div>
-      <p className="font-oldLondon font-bold md:text-4xl text-xl text-white">
-        New Zealand
+      <p className="font-mono tracking-wider font-bold md:text-3xl text-xl text-white uppercase">
+        Observational Documentary
       </p>
-      <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
-        Documenting the raw beauty and untamed wilderness of New Zealand's landscapes.
+      <p className="font-normal text-sm my-3 max-w-lg text-neutral-200 leading-relaxed">
+        Responsive, intuitive camera operating built to navigate unpredictable real-world environments without intrusion.
       </p>
+      <span className="text-[10px] font-mono tracking-widest text-neutral-400 uppercase">
+        Concept Spec · Sony FX6 Run & Gun
+      </span>
     </div>
   );
 };
@@ -53,12 +61,15 @@ const SkeletonThree = () => {
 const SkeletonFour = () => {
   return (
     <div>
-      <p className="font-oldLondon font-bold md:text-4xl text-xl text-white">
-        Iceland
+      <p className="font-mono tracking-wider font-bold md:text-3xl text-xl text-white uppercase">
+        Commercial & Studio
       </p>
-      <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
-        Capturing the ethereal beauty of Iceland's dramatic landscapes and natural wonders.
+      <p className="font-normal text-sm my-3 max-w-lg text-neutral-200 leading-relaxed">
+        High-precision camera movements, motion control tracks, and sculpted lighting for luxury and commercial productions.
       </p>
+      <span className="text-[10px] font-mono tracking-widest text-neutral-400 uppercase">
+        Concept Spec · Anamorphic Glass & Motion Dolly
+      </span>
     </div>
   );
 };
@@ -68,25 +79,25 @@ const cards = [
     id: 1,
     content: <SkeletonOne />,
     className: "md:col-span-2",
-    thumbnail: "/Tokyo/tokyo-22.webp",
+    thumbnail: "/camera-operating/camera-operating-1.webp",
   },
   {
     id: 2,
     content: <SkeletonTwo />,
     className: "col-span-1",
-    thumbnail: "/Urban Portraits/urban-portraits-1.jpg",
+    thumbnail: "/aerial/aerial-1.webp",
   },
   {
     id: 3,
     content: <SkeletonThree />,
     className: "col-span-1",
-    thumbnail: "/new zealand/new-zealand-18.jpg",
+    thumbnail: "/documentary/documentary-1.webp",
   },
   {
     id: 4,
     content: <SkeletonFour />,
     className: "md:col-span-2",
-    thumbnail: "/Iceland/iceland-1.jpg",
+    thumbnail: "/commercial/commercial-1.webp",
   },
 ];
 
@@ -105,19 +116,19 @@ export const LayoutGrid = ({ cards }: { cards: Card[] }) => {
   };
 
   return (
-    <div className="w-full h-full p-10 grid grid-cols-1 md:grid-cols-3 max-w-8xl mx-auto gap-4 relative">
+    <div className="w-full h-full p-4 sm:p-10 grid grid-cols-1 md:grid-cols-3 max-w-8xl mx-auto gap-4 relative">
       {cards.map((card, i) => (
-        <div key={i} className={cn(card.className, "")}>
+        <div key={i} className={cn(card.className, "min-h-[260px] md:min-h-[320px]")}>
           <motion.div
             onClick={() => handleClick(card)}
             className={cn(
               card.className,
-              "relative overflow-hidden",
+              "relative overflow-hidden cursor-pointer h-full w-full rounded-2xl sm:rounded-3xl border border-white/10 shadow-lg",
               selected?.id === card.id
-                ? "rounded-3xl cursor-pointer absolute inset-0 h-1/2 w-full md:w-1/2 m-auto z-50 flex justify-center items-center flex-wrap flex-col"
+                ? "rounded-3xl cursor-pointer absolute inset-0 h-4/5 w-full md:w-3/4 m-auto z-50 flex justify-center items-center flex-wrap flex-col"
                 : lastSelected?.id === card.id
-                ? "z-40 bg-white rounded-3xl h-full w-full"
-                : "bg-white rounded-3xl h-full w-full"
+                ? "z-40 h-full w-full"
+                : "h-full w-full"
             )}
             layoutId={`card-${card.id}`}
           >
@@ -129,10 +140,10 @@ export const LayoutGrid = ({ cards }: { cards: Card[] }) => {
       <motion.div
         onClick={handleOutsideClick}
         className={cn(
-          "absolute h-full w-full left-0 top-0  opacity-0 z-10",
-          selected?.id ? "pointer-events-auto" : "pointer-events-none"
+          "absolute h-full w-full left-0 top-0 opacity-0 z-10",
+          selected?.id ? "pointer-events-auto bg-black/60" : "pointer-events-none"
         )}
-        animate={{ opacity: selected?.id ? 0.3 : 0 }}
+        animate={{ opacity: selected?.id ? 0.6 : 0 }}
       />
     </div>
   );
@@ -143,12 +154,10 @@ const ImageComponent = ({ card }: { card: Card }) => {
     <motion.img
       layoutId={`image-${card.id}-image`}
       src={card.thumbnail}
-      height="500"
-      width="500"
       className={cn(
-        "object-cover object-top absolute inset-0 h-full w-full transition duration-200"
+        "object-cover object-center absolute inset-0 h-full w-full transition duration-300"
       )}
-      alt="thumbnail"
+      alt="Cinematic production concept spec"
     />
   );
 };
@@ -158,8 +167,8 @@ const SelectedCard = ({ selected }: { selected: Card | null }) => {
     <div className="bg-transparent h-full w-full flex flex-col justify-end rounded-3xl shadow-2xl relative z-[60]">
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: 0.6 }}
-        className="absolute inset-0 h-full w-full bg-black opacity-60 z-10"
+        animate={{ opacity: 0.7 }}
+        className="absolute inset-0 h-full w-full bg-gradient-to-t from-black via-black/60 to-transparent z-10"
       />
       <motion.div
         layoutId={`content-${selected?.id}`}
@@ -167,7 +176,7 @@ const SelectedCard = ({ selected }: { selected: Card | null }) => {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 100 }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="relative px-8 pb-4 z-[70]"
+        className="relative px-8 pb-8 z-[70]"
       >
         {selected?.content}
       </motion.div>
@@ -177,7 +186,15 @@ const SelectedCard = ({ selected }: { selected: Card | null }) => {
 
 export function LayoutGridDemo() {
   return (
-    <div className="h-screen py-20 w-full">
+    <div className="py-12 sm:py-20 w-full">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 mb-6">
+        <h2 className="text-2xl sm:text-3xl font-mono uppercase tracking-wider text-foreground">
+          Operating Focus & Disciplines
+        </h2>
+        <p className="text-sm font-mono text-muted-foreground mt-1">
+          Ground camera systems, aerial drone piloting, and specialized lighting
+        </p>
+      </div>
       <LayoutGrid cards={cards} />
     </div>
   );

@@ -1,166 +1,111 @@
 "use client"
 
 import Link from "next/link"
-import { Instagram, Twitter, Facebook, Youtube, Linkedin, Github } from "lucide-react"
+import { Mail, Film, ArrowUpRight } from "lucide-react"
 import { ThemeToggle } from "./theme-toggle"
 import { motion } from "framer-motion"
-import Logo from "./logo"
-import useDisableRightClick from './useDisableRightClick'; // Adjust the import path as necessary
+import { siteConfig } from "@/lib/config"
+import useDisableRightClick from './useDisableRightClick'
 
 export default function Footer() {
-  useDisableRightClick(); // Apply the hook to disable right-click on images
+  useDisableRightClick()
 
   return (
     <motion.footer
-      className="bg-background border-t border-border py-12 px-4 md:px-8"
+      className="bg-background border-t border-border py-14 px-4 md:px-8 mt-24"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
     >
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
-        <motion.div
-          className="md:col-span-2"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <div className="flex items-center gap-3 mb-4">
-            {/* <Logo /> */}
-            <Link href="/" className="font-old-london text-2xl font-bold inline-block text-foreground">
-              X100
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
+        {/* Brand & Roles */}
+        <div className="md:col-span-2">
+          <div className="flex items-center gap-2 mb-3">
+            <Film size={18} className="text-primary" />
+            <Link href="/" className="font-mono tracking-widest text-xl font-bold uppercase text-foreground">
+              {siteConfig.name}
             </Link>
           </div>
-          <p className="text-muted-foreground max-w-md mb-6 max-w-xs">
-            Capturing moments and telling stories through the lens. Professional photography services for all your
-            needs.
+          <p className="text-sm font-mono text-muted-foreground mb-4">
+            {siteConfig.rolesFormatted}
           </p>
-          <div className="flex space-x-4 items-center">
-            <motion.a
-              href="https://github.com/lilxyzz"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-foreground hover:text-primary transition-colors"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Instagram size={20} />
-              <span className="sr-only">Instagram</span>
-            </motion.a>
-            <motion.a
-              href="https://github.com/lilxyzz"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-foreground hover:text-primary transition-colors"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Twitter size={20} />
-              <span className="sr-only">Twitter</span>
-            </motion.a>
-            <motion.a
-              href="https://github.com/lilxyzz"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-foreground hover:text-primary transition-colors"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Facebook size={20} />
-              <span className="sr-only">Facebook</span>
-            </motion.a>
-              <motion.a
-                href="https://github.com/lilxyzz"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-foreground hover:text-primary transition-colors"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Youtube size={20} />
-                <span className="sr-only">Youtube</span>
-            </motion.a>
-             {/* <motion.a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-foreground hover:text-primary transition-colors"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Linkedin size={20} />
-                <span className="sr-only">Linkedin</span>
-            </motion.a> */}
-             <motion.a
-                href="https://github.com/lilxyzz"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-foreground hover:text-primary transition-colors"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Github size={20} />
-                <span className="sr-only">Github</span>
-              </motion.a> 
-            <ThemeToggle />
+          <p className="text-sm text-muted-foreground/80 max-w-md mb-6 leading-relaxed">
+            {siteConfig.tagline} {siteConfig.availabilityFull}
+          </p>
+
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary/70 border border-border text-[11px] font-mono text-muted-foreground">
+            <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>{siteConfig.availability}</span>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <h3 className="section-title text-2xl mb-4">Quick Links</h3>
-          <ul className="space-y-2">
+        {/* Quick Links */}
+        <div>
+          <h3 className="text-xs font-mono uppercase tracking-widest text-foreground font-semibold mb-4">
+            Navigation
+          </h3>
+          <ul className="space-y-2.5 text-sm font-mono">
             <li>
-              <Link href="/showcase" className="text-muted-foreground hover:text-primary transition-colors">
-                Showcase
+              <Link href="/showcase" className="text-muted-foreground hover:text-foreground transition-colors">
+                Work Categories
               </Link>
             </li>
             <li>
-              <Link href="/about" className="text-muted-foreground hover:text-primary transition-colors">
-                About
+              <Link href="/collections/aerial" className="text-muted-foreground hover:text-foreground transition-colors">
+                Aerial Cinematography
               </Link>
             </li>
             <li>
-              <Link href="/contact" className="text-muted-foreground hover:text-primary transition-colors">
-                Contact
+              <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">
+                About & Roles
+              </Link>
+            </li>
+            <li>
+              <Link href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">
+                Contact & Bookings
               </Link>
             </li>
           </ul>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <h3 className="section-title text-2xl mb-4">Contact</h3>
-          <ul className="space-y-2 text-muted-foreground">
-            <h4 className="text-primary">Email</h4>
-            <a href="mailto:contact@x100.com"><li>contact@x100.com</li></a> 
-            {/* <li>Phone: +1 (555) 123-4567</li> */}
-            <h4 className="text-primary">Location</h4>
-            <li>39.1569° S, 175.6321° E</li>
-          </ul>
-        </motion.div>
+        {/* Direct Inquiries */}
+        <div>
+          <h3 className="text-xs font-mono uppercase tracking-widest text-foreground font-semibold mb-4">
+            Production Inquiries
+          </h3>
+          <div className="space-y-3 text-sm">
+            <div>
+              <p className="text-xs font-mono text-muted-foreground uppercase">Email</p>
+              <a
+                href={`mailto:${siteConfig.email}?subject=Production%20Enquiry%20-%20Nick%20Gaven`}
+                className="font-mono text-sm text-primary hover:underline inline-flex items-center gap-1 mt-0.5"
+              >
+                <span>{siteConfig.email}</span>
+                <ArrowUpRight size={14} />
+              </a>
+            </div>
+
+            <div>
+              <p className="text-xs font-mono text-muted-foreground uppercase">Location Base</p>
+              <p className="font-mono text-sm text-foreground/80">{siteConfig.location} · Available Worldwide</p>
+            </div>
+
+            <div className="pt-2">
+              <ThemeToggle />
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-border">
-        <motion.p
-          className="text-center text-muted-foreground text-sm"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          © {new Date().getFullYear()} <Link href="https://travislord.xyz" target="_blank"
-                rel="noopener noreferrer" className="hover:text-primary transition-colors">TL</Link>. All rights reserved. 🕸️
-        </motion.p>
+      {/* Concept Disclaimer & Copyright */}
+      <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted-foreground font-mono">
+        <p>
+          © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
+        </p>
+        <p className="text-[11px] text-muted-foreground/70 text-center md:text-right">
+          {siteConfig.mediaDisclaimer} · Working environment representation
+        </p>
       </div>
     </motion.footer>
   )
