@@ -4,7 +4,7 @@ import Image from "next/image"
 import { ArrowRight, Video, Compass, Layers, ShieldCheck, Mail, CheckCircle2 } from "lucide-react"
 import { motion } from "framer-motion"
 import AnimatedButton from "@/components/animated-button"
-import { siteConfig } from "@/lib/config"
+import { siteConfig, theoMedia } from "@/lib/config"
 
 export default function AboutPage() {
   return (
@@ -51,7 +51,7 @@ export default function AboutPage() {
             <div className="relative h-[560px] w-full rounded-3xl overflow-hidden border border-border/80 shadow-2xl group">
               <Image
                 src={siteConfig.authorImage}
-                alt="Nick Gaven portfolio concept portrait"
+                alt="Nick Parker portfolio concept portrait"
                 fill
                 priority
                 className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
@@ -86,7 +86,7 @@ export default function AboutPage() {
             </div>
 
             <p className="text-muted-foreground text-base leading-relaxed">
-              Nick Gaven is a UK-based camera professional operating across feature films, television drama, documentary, commercial, and specialist factual productions. His roles encompass <strong className="text-foreground">Camera Operator</strong>, <strong className="text-foreground">Director of Photography (DOP)</strong>, <strong className="text-foreground">Camera Assistant</strong>, and <strong className="text-foreground">Drone Pilot</strong>.
+              Nick Parker is a UK-based camera professional operating across feature films, television drama, documentary, commercial, and specialist factual productions. His roles encompass <strong className="text-foreground">Camera Operator</strong>, <strong className="text-foreground">Director of Photography (DOP)</strong>, <strong className="text-foreground">Camera Assistant</strong>, and <strong className="text-foreground">Drone Pilot</strong>.
             </p>
 
             <p className="text-muted-foreground text-base leading-relaxed">
@@ -142,10 +142,12 @@ export default function AboutPage() {
                 Production Enquiry
               </AnimatedButton>
               <a
-                href={`mailto:${siteConfig.email}?subject=Production%20Booking%20-%20Nick%20Gaven`}
+                href={theoMedia.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-xs font-mono text-muted-foreground hover:text-foreground underline underline-offset-4"
               >
-                {siteConfig.email}
+                Chat on WhatsApp
               </a>
             </div>
           </motion.div>

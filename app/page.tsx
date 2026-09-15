@@ -7,7 +7,7 @@ import { motion } from "framer-motion"
 import Image from "next/image"
 import { HeroGalleryScroll } from "@/components/hero-gallery-scroll"
 import { LayoutGridDemo } from "@/components/layout-image-grid"
-import { siteConfig } from "@/lib/config"
+import { siteConfig, theoMedia } from "@/lib/config"
 
 export default function Home() {
   return (
@@ -18,7 +18,7 @@ export default function Home() {
       {/* Hero Section with Scroll Animation */}
       <HeroGalleryScroll />
 
-      {/* Introduction / About Nick Gaven */}
+      {/* Introduction / About Nick Parker */}
       <section id="introduction" className="mt-20 mb-20 py-12 px-4 md:px-8 max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <motion.div
@@ -37,7 +37,7 @@ export default function Home() {
             </h2>
 
             <p className="text-muted-foreground text-base mb-4 leading-relaxed">
-              Nick Gaven is a UK-based Camera Operator, Director of Photography (DOP), Camera Assistant, and licensed Drone Pilot. Working across narrative, documentary, commercial, and specialist factual productions.
+              Nick Parker is a UK-based Camera Operator, Director of Photography (DOP), Camera Assistant, and licensed Drone Pilot. Working across narrative, documentary, commercial, and specialist factual productions.
             </p>
 
             <p className="text-muted-foreground text-base mb-8 leading-relaxed">
@@ -145,10 +145,12 @@ export default function Home() {
               Get In Touch
             </AnimatedButton>
             <a
-              href={`mailto:${siteConfig.email}?subject=Production%20Enquiry%20-%20Nick%20Gaven`}
+              href={theoMedia.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-6 py-3 rounded-full border border-border bg-background hover:bg-secondary text-sm font-mono uppercase tracking-wider transition-colors"
             >
-              Direct Email
+              WhatsApp TheoMedia
             </a>
           </div>
         </motion.div>

@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} dark`} suppressHydrationWarning>
-      <body className="bg-background text-foreground selection:bg-white/20 pb-16 md:pb-0">
+      <body className="bg-background text-foreground selection:bg-white/20 pb-16">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           <SafariThemeColor />
           <SoundEffects />

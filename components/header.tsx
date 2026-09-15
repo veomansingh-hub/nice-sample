@@ -3,10 +3,10 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu, X } from "lucide-react"
+import { Menu, X, MessageCircle, ExternalLink } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ThemeToggle } from "./theme-toggle"
-import { siteConfig } from "@/lib/config"
+import { siteConfig, theoMedia } from "@/lib/config"
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -158,14 +158,29 @@ export default function Header() {
                 </Link>
               ))}
 
-              <div className="pt-8 text-center">
-                <p className="text-xs text-muted-foreground font-mono mb-2 uppercase">Direct Production Contact</p>
+              <div className="pt-8 text-center space-y-3">
+                <p className="text-xs text-muted-foreground font-mono mb-3 uppercase">Get In Touch</p>
                 <a
-                  href={`mailto:${siteConfig.email}`}
-                  className="text-sm font-mono text-primary underline underline-offset-4"
+                  href={theoMedia.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-[#25D366] text-white text-sm font-semibold font-mono tracking-wide"
+                  onClick={() => setIsMenuOpen(false)}
                 >
-                  {siteConfig.email}
+                  <MessageCircle size={16} strokeWidth={2.5} />
+                  <span>Chat on WhatsApp</span>
                 </a>
+                <div>
+                  <a
+                    href={theoMedia.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-sm font-mono text-muted-foreground hover:text-foreground underline underline-offset-4"
+                  >
+                    <ExternalLink size={13} />
+                    <span>{theoMedia.displayUrl}</span>
+                  </a>
+                </div>
               </div>
             </nav>
           </motion.div>

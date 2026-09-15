@@ -1,10 +1,10 @@
 "use client"
 
 import Link from "next/link"
-import { Mail, Film, ArrowUpRight } from "lucide-react"
+import { Film, MessageCircle, ExternalLink } from "lucide-react"
 import { ThemeToggle } from "./theme-toggle"
 import { motion } from "framer-motion"
-import { siteConfig } from "@/lib/config"
+import { siteConfig, theoMedia } from "@/lib/config"
 import useDisableRightClick from './useDisableRightClick'
 
 export default function Footer() {
@@ -69,20 +69,35 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Direct Inquiries */}
+        {/* Contact & TheoMedia */}
         <div>
           <h3 className="text-xs font-mono uppercase tracking-widest text-foreground font-semibold mb-4">
-            Production Inquiries
+            Get In Touch
           </h3>
           <div className="space-y-3 text-sm">
             <div>
-              <p className="text-xs font-mono text-muted-foreground uppercase">Email</p>
+              <p className="text-xs font-mono text-muted-foreground uppercase mb-1">WhatsApp</p>
               <a
-                href={`mailto:${siteConfig.email}?subject=Production%20Enquiry%20-%20Nick%20Gaven`}
-                className="font-mono text-sm text-primary hover:underline inline-flex items-center gap-1 mt-0.5"
+                href={theoMedia.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono text-sm text-[#25D366] hover:underline inline-flex items-center gap-1.5"
               >
-                <span>{siteConfig.email}</span>
-                <ArrowUpRight size={14} />
+                <MessageCircle size={14} />
+                <span>Chat on WhatsApp</span>
+              </a>
+            </div>
+
+            <div>
+              <p className="text-xs font-mono text-muted-foreground uppercase mb-1">via TheoMedia</p>
+              <a
+                href={theoMedia.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono text-sm text-primary hover:underline inline-flex items-center gap-1"
+              >
+                <span>{theoMedia.displayUrl}</span>
+                <ExternalLink size={13} />
               </a>
             </div>
 
@@ -98,13 +113,24 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Concept Disclaimer & Copyright */}
+      {/* Concept Disclaimer, Copyright & TheoMedia Credit */}
       <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted-foreground font-mono">
         <p>
           © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
         </p>
-        <p className="text-[11px] text-muted-foreground/70 text-center md:text-right">
+        <p className="text-[11px] text-muted-foreground/70 text-center">
           {siteConfig.mediaDisclaimer} · Working environment representation
+        </p>
+        <p className="text-[11px] text-muted-foreground/60 text-center md:text-right">
+          Website crafted by{" "}
+          <a
+            href={theoMedia.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-muted-foreground/80 hover:text-foreground underline underline-offset-2 transition-colors"
+          >
+            {theoMedia.displayUrl}
+          </a>
         </p>
       </div>
     </motion.footer>

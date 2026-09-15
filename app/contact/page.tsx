@@ -2,29 +2,19 @@
 
 import { useState } from "react"
 import Image from "next/image"
-import { Mail, Phone, MessageSquare, MapPin, Film, AlertCircle, X, CheckCircle2 } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
-import { siteConfig } from "@/lib/config"
+import { MessageCircle, MapPin, Film, ExternalLink, CheckCircle2 } from "lucide-react"
+import { motion } from "framer-motion"
+import { siteConfig, theoMedia } from "@/lib/config"
 
 export default function ContactPage() {
-  const [showPhoneModal, setShowPhoneModal] = useState<"call" | "text" | null>(null)
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    productionType: "Narrative / Drama",
     dates: "",
     role: "Camera Operator",
     message: ""
   })
-
-  const handlePhoneAction = (type: "call" | "text") => {
-    if (siteConfig.phone) {
-      window.location.href = type === "call" ? `tel:${siteConfig.phone}` : `sms:${siteConfig.phone}`
-    } else {
-      setShowPhoneModal(type)
-    }
-  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -54,7 +44,7 @@ export default function ContactPage() {
             <span>{siteConfig.availability}</span>
           </div>
           <h1 className="text-4xl md:text-6xl font-mono uppercase font-bold tracking-tight text-white mb-2">
-            Contact & Bookings
+            Contact &amp; Bookings
           </h1>
           <p className="text-white/80 text-sm md:text-base font-mono max-w-xl">
             Direct production inquiries for UK and international shoots
@@ -65,7 +55,7 @@ export default function ContactPage() {
       {/* Main Contact Section */}
       <section className="py-16 px-4 md:px-8 max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12">
-          {/* Left Column: Direct Controls & Info */}
+          {/* Left Column: Contact Info */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -84,61 +74,45 @@ export default function ContactPage() {
               </p>
             </div>
 
-            {/* Desktop Contact Buttons (EMAIL, CALL, TEXT) */}
+            {/* WhatsApp & TheoMedia CTAs */}
             <div className="space-y-3">
               <p className="text-xs font-mono uppercase tracking-wider text-muted-foreground">
-                Quick Action Controls (Desktop & Mobile)
+                Contact via TheoMedia
               </p>
-              <div className="grid grid-cols-3 gap-3">
-                {/* EMAIL */}
-                <a
-                  href={`mailto:${siteConfig.email}?subject=Production%20Enquiry%20-%20Nick%20Gaven`}
-                  className="flex flex-col items-center justify-center p-4 rounded-2xl bg-primary text-primary-foreground hover:opacity-90 transition-all shadow-md group"
-                >
-                  <Mail className="mb-2 transition-transform group-hover:scale-110" size={20} />
-                  <span className="font-mono text-xs uppercase font-bold tracking-wider">EMAIL</span>
-                  <span className="text-[10px] opacity-75 mt-0.5">Direct link</span>
-                </a>
 
-                {/* CALL */}
-                <button
-                  type="button"
-                  onClick={() => handlePhoneAction("call")}
-                  className="flex flex-col items-center justify-center p-4 rounded-2xl bg-secondary hover:bg-secondary/80 border border-border text-foreground transition-all group"
-                >
-                  <Phone className="mb-2 text-primary transition-transform group-hover:scale-110" size={20} />
-                  <span className="font-mono text-xs uppercase font-bold tracking-wider">CALL</span>
-                  <span className="text-[10px] text-muted-foreground mt-0.5">Telephone</span>
-                </button>
+              <a
+                href={theoMedia.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 p-4 rounded-2xl bg-[#25D366]/10 border border-[#25D366]/40 text-[#25D366] hover:bg-[#25D366]/20 transition-all"
+              >
+                <div className="w-10 h-10 rounded-xl bg-[#25D366] text-white flex items-center justify-center shrink-0">
+                  <MessageCircle size={20} strokeWidth={2.5} />
+                </div>
+                <div>
+                  <p className="font-mono text-sm font-bold uppercase tracking-wider">Chat on WhatsApp</p>
+                  <p className="text-[11px] text-[#25D366]/70 font-mono">+353 85 225 8004 &middot; TheoMedia</p>
+                </div>
+              </a>
 
-                {/* TEXT */}
-                <button
-                  type="button"
-                  onClick={() => handlePhoneAction("text")}
-                  className="flex flex-col items-center justify-center p-4 rounded-2xl bg-secondary hover:bg-secondary/80 border border-border text-foreground transition-all group"
-                >
-                  <MessageSquare className="mb-2 text-primary transition-transform group-hover:scale-110" size={20} />
-                  <span className="font-mono text-xs uppercase font-bold tracking-wider">TEXT</span>
-                  <span className="text-[10px] text-muted-foreground mt-0.5">SMS message</span>
-                </button>
-              </div>
+              <a
+                href={theoMedia.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 p-4 rounded-2xl bg-secondary/60 border border-border hover:bg-secondary transition-all"
+              >
+                <div className="w-10 h-10 rounded-xl bg-secondary border border-border flex items-center justify-center shrink-0">
+                  <ExternalLink size={18} className="text-primary" />
+                </div>
+                <div>
+                  <p className="font-mono text-sm font-bold text-foreground uppercase tracking-wider">Visit TheoMedia.co.uk</p>
+                  <p className="text-[11px] text-muted-foreground font-mono">Official TheoMedia website</p>
+                </div>
+              </a>
             </div>
 
-            {/* Information List */}
+            {/* Info List */}
             <div className="space-y-4 pt-4 border-t border-border">
-              <div className="flex items-start gap-3">
-                <Mail className="text-primary mt-1" size={18} />
-                <div>
-                  <h3 className="font-mono text-xs uppercase text-muted-foreground">Email</h3>
-                  <a
-                    href={`mailto:${siteConfig.email}?subject=Production%20Enquiry%20-%20Nick%20Gaven`}
-                    className="text-foreground font-mono text-sm hover:underline"
-                  >
-                    {siteConfig.email}
-                  </a>
-                </div>
-              </div>
-
               <div className="flex items-start gap-3">
                 <MapPin className="text-primary mt-1" size={18} />
                 <div>
@@ -156,16 +130,16 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Call to action notice */}
+            {/* Production notice */}
             <div className="p-4 rounded-2xl bg-emerald-950/20 border border-emerald-500/30 text-xs font-mono text-emerald-300">
               <p className="font-semibold mb-1">Production Inquiries Notice</p>
               <p className="text-emerald-300/80 leading-relaxed">
-                Nick Gaven is currently open to bookings for features, drama series, documentaries, commercials, and aerial cinematography. Call sheets and project treatments are welcome via email.
+                Nick Parker is currently open to bookings for features, drama series, documentaries, commercials, and aerial cinematography. Contact TheoMedia via WhatsApp or the website with your shoot details and production treatment.
               </p>
             </div>
           </motion.div>
 
-          {/* Right Column: Production Booking Inquiry Form */}
+          {/* Right Column: Production Booking Form */}
           <motion.div
             className="bg-card border border-border p-6 sm:p-8 rounded-3xl shadow-xl"
             initial={{ opacity: 0, y: 20 }}
@@ -184,7 +158,7 @@ export default function ContactPage() {
                 </div>
                 <h4 className="font-mono text-lg font-semibold">Message Received</h4>
                 <p className="text-sm text-muted-foreground max-w-xs mx-auto">
-                  Thank you for your enquiry. Nick will respond directly to your email shortly.
+                  Thank you for your enquiry. Nick&apos;s team will respond to your message shortly.
                 </p>
                 <button
                   type="button"
@@ -212,7 +186,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <label className="block text-xs font-mono uppercase text-muted-foreground mb-1">
-                      Email Address
+                      Your Email Address
                     </label>
                     <input
                       type="email"
@@ -239,7 +213,7 @@ export default function ContactPage() {
                       <option>DOP (Director of Photography)</option>
                       <option>Drone Pilot / Aerial Cinematographer</option>
                       <option>Camera Assistant / 1st AC</option>
-                      <option>Full Camera & Drone Package</option>
+                      <option>Full Camera &amp; Drone Package</option>
                     </select>
                   </div>
                   <div>
@@ -258,7 +232,7 @@ export default function ContactPage() {
 
                 <div>
                   <label className="block text-xs font-mono uppercase text-muted-foreground mb-1">
-                    Production Details & Treatment
+                    Production Details &amp; Treatment
                   </label>
                   <textarea
                     rows={4}
@@ -281,62 +255,6 @@ export default function ContactPage() {
           </motion.div>
         </div>
       </section>
-
-      {/* Phone Notice Modal when telephone number is pending */}
-      <AnimatePresence>
-        {showPhoneModal && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
-            onClick={() => setShowPhoneModal(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-card border border-border rounded-2xl p-6 max-w-sm w-full shadow-2xl text-center relative"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                type="button"
-                onClick={() => setShowPhoneModal(null)}
-                className="absolute top-4 right-4 text-muted-foreground hover:text-foreground"
-                aria-label="Close"
-              >
-                <X size={18} />
-              </button>
-
-              <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center mx-auto mb-4">
-                <AlertCircle size={24} />
-              </div>
-
-              <h3 className="text-lg font-semibold mb-2">Direct {showPhoneModal === "call" ? "Call" : "Text"} Line</h3>
-              <p className="text-sm text-muted-foreground mb-5 leading-relaxed">
-                Direct phone and WhatsApp details are provided on verified production request. Please email Nick with your shoot dates or call sheet, and contact numbers will be provided immediately.
-              </p>
-
-              <div className="space-y-2">
-                <a
-                  href={`mailto:${siteConfig.email}?subject=Production%20Phone%20Request%20-%20Nick%20Gaven`}
-                  className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-primary text-primary-foreground font-medium text-sm transition-all hover:opacity-90"
-                >
-                  <Mail size={16} />
-                  <span>Email {siteConfig.email}</span>
-                </a>
-                <button
-                  type="button"
-                  onClick={() => setShowPhoneModal(null)}
-                  className="w-full py-2.5 text-xs text-muted-foreground hover:text-foreground"
-                >
-                  Dismiss
-                </button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   )
 }

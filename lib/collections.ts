@@ -133,7 +133,7 @@ function getCollectionImages(collectionSlug: string): Photo[] {
       src: imagePath,
       width: 1920,
       height: 1080,
-      alt: `${collectionSlug.replace(/-/g, ' ')} conceptual frame ${index} - Nick Gaven portfolio concept`,
+      alt: `${collectionSlug.replace(/-/g, ' ')} conceptual frame ${index} - Nick Parker portfolio concept`,
       metadata: meta,
     }
   })
